@@ -3,63 +3,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package atvpaulinho;
-import java.util.Scanner;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Marlene Juliana
  */
 public class AtvPaulinho {
-    //Escreva um programa Java que permita ao usuário inserir uma lista de números inteiros
-     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        // Solicita ao usuário a quantidade de números
-        System.out.print("Digite a quantidade de numeros: ");
-        int n = scanner.nextInt();
-
-       
-        int[] numbers = new int[n];
-
-        
-        System.out.println("Digite os numeros:");
-        for (int i = 0; i < n; i++) {
-            numbers[i] = scanner.nextInt();
-        }
-
-        // Ordena os números usando Bubble Sort
-        bubbleSort(numbers);
-
-        // Imprime os números ordenados
-        System.out.println("Numeros ordenados:");
-        for (int i = 0; i < n; i++) {
-            System.out.print(numbers[i] + " ");
-        }
-        System.out.println();
-    
-     // Solicita ao usuário o número a ser pesquisado
-        System.out.print("Digite o numero a ser pesquisado: ");
-        int searchNumber = scanner.nextInt();
-
-        // Realiza uma pesquisa linear no array ordenado
-        int position = linearSearch(numbers, searchNumber);
-
-        // Verifica se o número foi encontrado e imprime a posição
-        if (position != -1) {
-            System.out.println("O numero " + searchNumber + " foi encontrado na posicao " + (position + 1));
-        } else {
-            System.out.println("O numero " + searchNumber + " nao foi encontrado na lista.");
-        }
-        
-        scanner.close();
-    }
-     //seguida, ordene esses números usando um método de ordenação (por exemplo, Bubble Sort)
-  
+    // Método para ordenar os números usando Bubble Sort
     static void bubbleSort(int arr[]) {
         int n = arr.length;
         for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {
                 if (arr[j] > arr[j + 1]) {
-                    // Troca os elementos arr[j] e arr[j+1]
                     int temp = arr[j];
                     arr[j] = arr[j + 1];
                     arr[j + 1] = temp;
@@ -73,10 +28,52 @@ public class AtvPaulinho {
         int n = arr.length;
         for (int i = 0; i < n; i++) {
             if (arr[i] == x) {
-                return i; // Retorna a posição se o número for encontrado
+                return i; 
             }
         }
-        return -1; // Retorna -1 se o número não for encontrado
+        return -1; 
     }
- }
 
+    public static void main(String[] args) {
+        // Solicita ao usuário a quantidade de números
+        String input = JOptionPane.showInputDialog("Digite a quantidade de numeros:");
+        int n = Integer.parseInt(input);
+
+        // Cria um array para armazenar os numeros
+        int[] numbers = new int[n];
+
+        // Preenche o array com os números fornecidos pelo usuário
+        StringBuilder numbersInput = new StringBuilder();
+        numbersInput.append("Digite os números separados por espaço:");
+        for (int i = 0; i < n; i++) {
+            String num = JOptionPane.showInputDialog("Digite o número " + (i + 1) + ":");
+            numbers[i] = Integer.parseInt(num);
+            numbersInput.append(" ").append(num);
+        }
+
+        // Ordena 
+        bubbleSort(numbers);
+
+        // Imprime 
+        StringBuilder sortedNumbers = new StringBuilder();
+        sortedNumbers.append("Números ordenados:\n");
+        for (int i = 0; i < n; i++) {
+            sortedNumbers.append(numbers[i]).append(" ");
+        }
+        JOptionPane.showMessageDialog(null, sortedNumbers);
+
+        // Solicita ao usuário o número a ser pesquisado
+        input = JOptionPane.showInputDialog("Digite o número a ser pesquisado:");
+        int searchNumber = Integer.parseInt(input);
+
+        // Realiza uma pesquisa linear no array ordenado
+        int position = linearSearch(numbers, searchNumber);
+
+        // Verifica se o número foi encontrado e imprime a posição
+        if (position != -1) {
+            JOptionPane.showMessageDialog(null, "O número " + searchNumber + " foi encontrado na posição " + (position + 1));
+        } else {
+            JOptionPane.showMessageDialog(null, "O número " + searchNumber + " não foi encontrado na lista.");
+        }
+    }
+}
